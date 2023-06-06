@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Welcome
+{% endblock %}
+
+
+{% block content %}
+
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">New items</h2>
+        <div class="grid grid-cols-3 gap-3">
+            {% for item in pages %}
+                <div>
+                    <a href="{{ item.get_absolute_url }}">
+                        <div>
+                            <img class="rounded-t-xl" src="{{ item.image.url }}">
+                        </div>
+                        <div class="p-6 bg-sky-100 rounded-b-xl">
+                            <h2 class="text-2xl">{{ item.name }}</h2>
+                            <p class="text-gray-500">
+                                Price: 
+                                {% if item.discount_price %}
+                                    <del>${{ item.price }}</del><span class="text-teal-500"> ${{ item.discount_price }}</span>
+                                {% else %}
+                                    ${{ item.price }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="text-center mt-6">
+        <div class="text-teal-500 font-semibold">
+            {% if pages.has_previous %}
+                <a href="?page=1">&laquo First</a>
+                <a href="?page={{ pages.previous_page_number }}">Previous</a>
+            {% else %}
+                <a class="disabled">&laquo First</a>
+                <a class="disabled">Previous</a>
+            {% endif %}
+
+            <span class="text-gray-600">
+                | Page {{ pages.number }} of {{ pages.paginator.num_pages }} |
+            </span>
+
+            {% if pages.has_next %}
+                <a href="?page={{ pages.next_page_number }}">Next</a>
+                <a href="?page={{ pages.paginator.num_pages }}">Last &raquo</a>
+            {% else %}
+                <a class="disabled">Next</a>
+                <a class="disabled">Last &raquo</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="mt-6 px-6 py-12 bg-gray-100 rounded-xl">
+        <h2 class="mb-12 text-2xl text-center">Categories</h2>
+        <div class="grid grid-cols-3 gap-3">
+            {% for category in categories %}
+                <div>
+                    <a href="#">
+                        <div class="p-6 bg-white rounded-b-xl">
+                            <h2 class="text-2xl">{{ category.name }}</h2>
+                            <p class="text-gray-500">
+                                {% if category.items.count == 1 %}
+                                    {{ category.items.count }} item
+                                {% elif category.items.count == 0 %}
+                                    No items available
+                                {% else %}
+                                    {{ category.items.count }} items
+                                {% endif %}    
+                            </p>
+                        </div>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}

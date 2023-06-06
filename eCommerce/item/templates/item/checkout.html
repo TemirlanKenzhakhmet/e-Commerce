@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Checkout
+{% endblock %}
+
+
+{% block content %}
+<div class="px-6 py-6 pb-6 m-5 text-3xl text-center bg-gray-100 rounded-xl">
+    <h1>Checkout form</h1>
+</div>
+
+<div class="flex flex-col md:flex-row mr-10 ml-10">
+    <div class="w-full md:w-3/4 px-6 py-6 pb-6 mr-3 bg-gray-100 rounded-xl">
+        <!-- Checkout form -->
+        <form action="." method="POST">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="address" class="inline-block mb-2">Street address</label>
+                <div id="address">
+                    {{ form.street_address }}
+                </div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="address2" class="inline-block mb-2">Apartment address (optional)</label>
+                <div id="address2">
+                    {{ form.apartment_address }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="country" class="inline-block mb-2">Country</label>
+                <div id="country">
+                    {{ form.country }}
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="zip_code" class="inline-block mb-2">ZIP code</label>
+                <div id="zip_code">
+                    {{ form.zip_code }}
+                </div>
+            </div>
+            
+            <hr class="w-3/4 mb-5 mt-7" style="height: 0.5px;border:none;color:#333;background-color:#333;">
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Shipping address is the same as my billing address</label>
+                {{ form.same_shipping_address }}
+
+            </div>
+
+            <div class="mb-3">
+                <label class="inline-block mb-2">Save this information for the next time</label>
+                {{ form.save_info }}
+
+            </div>
+
+            <hr class="w-3/4 mb-5 mt-4" style="height:1px;border:none;color:#333;background-color:#333;">
+
+            <div class="mb-3">
+                <label for="payment" class="inline-block mb-2">Choose your payment method:</label>
+                <div id="payment">
+                    {% for value, name in form.fields.payment_option.choices %}
+                    <div class="flex items-center mb-2">
+                        <input id="{{ name }}" type="radio" value="{{ value }}" name="payment_option" class="w-4 h-4 " required>
+                        <label for="{{ name }}" class="ml-2">{{ name }}</label>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <button type="submit" class="mt-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg aria-hidden="true" class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg>
+                Checkout
+            </button>
+        </form>
+    </div>
+    <div class="w-full md:w-1/4 px-6 py-6 pb-6 ml-2 bg-gray-100 rounded-xl">
+        <!-- Sidebar -->
+        Your cart
+    </div>
+</div>
+
+{% endblock %}

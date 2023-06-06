@@ -1,0 +1,18 @@
+<div hx-target="this" hx-swap="outerHTML">
+    <div class="p-6 flex {% if message.created_by == user %} bg-blue-100 {% else %} bg-gray-100 {% endif %} rounded-xl">
+        <div>
+            <p class="mb-4"><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+            <p>{{ message.content }}</p>
+        </div>
+    </div>
+    <div class="mt-2 {% if message.created_by != user %} hidden {% endif %}">
+        <button hx-get="{% url 'conversation:update-message' message.id %}"
+            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+            Update
+        </button>
+        <button hx-post="{% url 'conversation:delete-message' message.id %}"
+            class="ml-2 inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-red-700 bg-red-100 hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Delete
+        </button>
+    </div>
+</div>

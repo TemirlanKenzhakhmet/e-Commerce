@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Conversation
+{% endblock %}
+
+{% block content %}
+    <h1 class="mb-6 text-3xl">Conversation with {{ conversation.item.created_by }}</h1>
+    <div class="space-y-6">
+        {% for message in conversation.messages.all %}
+            {% include 'conversation/partials/message_detail.html' %}
+        {% endfor %}
+    </div>
+
+    <div class="mt-6" id="new-message"></div>
+
+    <button type="button" hx-get="{% url 'conversation:new-message' %}" hx-target="#new-message" hx-swap="beforeend" 
+        class="py-2 px-4 text-lg bg-teal-500 hover:bg-teal-700 rounded-xl text-white mt-6">
+        New message
+    </button>
+{% endblock %}
