@@ -9,7 +9,7 @@ from item.models import Item
 class indexView(ListView):
     template_name = 'dashboard/index.html'
     context_object_name = 'items'
-    paginate_by = 6
+    paginate_by = 1
 
     def get_queryset(self):
         return Item.objects.filter(created_by=self.request.user)

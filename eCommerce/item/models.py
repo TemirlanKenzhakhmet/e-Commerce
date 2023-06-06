@@ -46,6 +46,8 @@ class Item(models.Model):
     created_by = models.ForeignKey(User, related_name='items', on_delete=models.CASCADE)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    likes = models.PositiveIntegerField(default=0)
+
     objects = ItemManager()
 
     def __str__(self):

@@ -8,7 +8,7 @@ from django.views.generic import View
 
 from .models import Item, Category, Order, OrderItem, BillingAddress
 from .forms import NewItemForm, EditItemForm, CheckoutForm
- 
+
 
 def detail(request, slug):
     item = get_object_or_404(Item, slug=slug)
